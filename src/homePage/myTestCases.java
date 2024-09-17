@@ -1,6 +1,9 @@
 package homePage;
 
 import java.time.Duration;
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Random;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -18,6 +21,7 @@ public class myTestCases {
 	
 
 	String ExpectedDefaultLanage = "en";
+	Random rand = new Random();
 
 	@BeforeTest
 	public void mySetUp() {
@@ -83,6 +87,84 @@ public class myTestCases {
 
 	}
 	
+	@Test (priority = 5)
+	public void CheckHotelTabIsNotSelected() {
+		
+		WebElement HotelTab = driver.findElement(By.id("uncontrolled-tab-example-tab-hotels"));
+		
+		String ActualValue = HotelTab.getAttribute("aria-selected");		
+		String ExpectedValue = "false" ; 
+		Assert.assertEquals(ActualValue, ExpectedValue);
+		
+		
+		
+		
+	}
+	
+	
+	@Test (priority = 6)
+	public void CheckDepartureDate() {
+		
+		
+		LocalDate todayDate= LocalDate.now();
+		
+		int Today = todayDate.getDayOfMonth();
+		
+		int Tomorrow = todayDate.plusDays(1).getDayOfMonth();
+	//	System.out.println(Today);
+	//	System.out.println(Tomorrow);
+		
+		List<WebElement> depatureAndArrivalDates = driver.findElements(By.className("LiroG"));
+		
+		String ActualDepartureDate = depatureAndArrivalDates.get(0).getText();
+		
+		int ActualDepartureDateInt = Integer.parseInt(ActualDepartureDate);
+		
+		Assert.assertEquals(ActualDepartureDateInt, Tomorrow);
+		
+
+		System.out.println(ActualDepartureDateInt);
+		System.out.println(Tomorrow);
+
+		
+	}
+	
+	@Test(priority = 7)
+	public void CheckReturnDate() {
+		
+		LocalDate todayDate = LocalDate.now();
+		
+		int Today = todayDate.getDayOfMonth();
+		int TheDayAfterTomorrow = todayDate.plusDays(2).getDayOfMonth();
+		
+		List<WebElement> depatureAndArrivalDates = driver.findElements(By.className("LiroG"));
+		
+		String ActualReturnDate=depatureAndArrivalDates.get(1).getText();
+		
+		int ActualReturnDateInt = Integer.parseInt(ActualReturnDate);
+		
+		Assert.assertEquals(ActualReturnDateInt, TheDayAfterTomorrow);
+		
+		System.out.println(ActualReturnDateInt);
+		System.out.println(TheDayAfterTomorrow);
+		
+		
+		
+		
+	}
+	
+	@Test (priority = 8)
+	public void RandomlyChangeTheLanguage() {
+		
+		String [] URLs = {"https://www.almosafer.com/en" , "https://www.almosafer.com/ar"};
+		
+		int RandomIndex = rand.nextInt(URLs.length);
+		
+		
+		
+driver.get(URLs[RandomIndex]);		
+		
+	}
 	
 
 }
