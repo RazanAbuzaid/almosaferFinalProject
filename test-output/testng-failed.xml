@@ -6,7 +6,7 @@
       <class name="homePage.myTestCases">
         <methods>
           <include name="mySetUp"/>
-          <include name="CheckHotelTabIsNotSelected"/>
+          <include name="SortResultsLowestToHighestPrice"/>
         </methods>
       </class> <!-- homePage.myTestCases -->
     </classes>
